@@ -264,6 +264,29 @@ Note that Core does //not// provide any standard implementations for renderers. 
 ## Focus Chains
 ## Layouts
 ## Components
+
+Because Components inherit from ``layout-element``, ``focus-element``, ``observable`` and ``renderable``, they have quite a bit of functionality. We'll go over what al these superclasses provide one by one, before moving on to the componenents that specialize on this template.
+
+Because every Component is a ``layout-element``, it is bounded. Meaning that there exists a certain rectangle on screen that determines the location and size of the component. You can set this value directly by calling for example:
+
+::
+(setf (alloy:bounds component) (alloy:px-extent 0 0 200 200))
+::
+
+But we and the last twenty years of UI development advice against this. Which brings us to the next slot of a ``layout-element``, the ``layout-parent``. The layout-parent determines how a component is placed in a UI. How this looks like is something we'll talk about later, but for now it's important to know that a component //need// to have a ``layout-parent`` otherwise they will not be shown. You can do this as follows:
+
+::
+(alloy:enter component layout)
+::
+
+Where ``layout`` is some sort of layout. Once a component has served it's purpose a component can also be swiftly removed from the screen by calling:
+
+::
+(alloy:leave component layout)
+::
+
+It stands to reason that if ``layout`` is not the ``layout-parent`` of ``component`` an error is thrown.
+
 ### Button
 ### Combo
 ### Icon
